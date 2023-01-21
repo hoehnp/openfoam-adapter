@@ -6,7 +6,6 @@
 
 using namespace Foam;
 
-// TODO adjust meshConfig
 preciceAdapter::Interface::Interface(
     precice::SolverInterface& precice,
     const fvMesh& mesh,
@@ -385,7 +384,10 @@ void preciceAdapter::Interface::configureMesh(const fvMesh& mesh, const std::str
                 {
                     vertices[verticesIndex++] = mesh.C().internalField()[cells[i]].x();
                     vertices[verticesIndex++] = mesh.C().internalField()[cells[i]].y();
-                    vertices[verticesIndex++] = mesh.C().internalField()[cells[i]].z();
+                    if (dim_ == 3)
+                    {
+                        vertices[verticesIndex++] = mesh.C().internalField()[cells[i]].z();
+                    }   
                 }
             }
         }
